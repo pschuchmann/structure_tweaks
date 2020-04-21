@@ -1,0 +1,8 @@
+package: structure_tweaks/last_changes
+version: '1.0'
+author: Friends Of REDAXO
+supportpage: https://github.com/FriendsOfREDAXO/structure_tweaks
+
+page:
+    title: translate:title
+    perm: admin[]
