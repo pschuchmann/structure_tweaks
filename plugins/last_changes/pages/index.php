@@ -20,9 +20,6 @@ $field->setLabel($plugin->i18n('width_user'));
 $field = $form->addTextField('width_date');
 $field->setLabel($plugin->i18n('width_date'));
 
-$field = $form->addTextField('format_date');
-$field->setLabel($plugin->i18n('format_date'));
-
 $fragment = new rex_fragment();
 $fragment->setVar('class', 'edit', false);
 $fragment->setVar('title', $plugin->i18n('title'), false);

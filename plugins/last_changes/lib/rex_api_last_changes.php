@@ -21,25 +21,20 @@ class rex_api_last_changes extends rex_api_function
           ;
         $results = $results->getArray();
 
-        $format = $plugin->getConfig('format_date');
-        if ($format == '') {
-            $format = "d.m.Y";
-        }
-
         $datewidth = $plugin->getConfig('width_date');
         if ($datewidth == '') {
-            $datewidth = "80px";
+            $datewidth = '80px';
         }
 
         $userwidth = $plugin->getConfig('width_user');
         if ($userwidth == '') {
-            $userwidth = "80px";
+            $userwidth = '80px';
         }
 
         foreach ($results as $result) {
             $item = [
                 'article_id' => $result['id'],
-                'updatedate' => rex_formatter::format($result['updatedate'], 'strftime', $format),
+                'updatedate' => rex_formatter::format($result['updatedate'], 'strftime', rex_i18n::msg('datetimeformat')),
                 'updateuser' => $result['updateuser'],
                 'datewidth' => $datewidth,
                 'userwidth' => $userwidth,
