@@ -2,6 +2,7 @@
 
 class rex_api_last_changes extends rex_api_function
 {
+
     protected $published = true;
 
     public function execute()
@@ -12,39 +13,41 @@ class rex_api_last_changes extends rex_api_function
         $clang = rex_request('clang', 'int', 0);
         $category_id = rex_request('category_id', 'int', 0);
 
+        $config = [];
+        $config['width_date'] = $plugin->getConfig('width_date');
+        if ($config['width_date'] == '') {
+            $config['width_date'] = '80px';
+        }
+
+        $config['width_user'] = $plugin->getConfig('width_user');
+        if ($config['width_user'] == '') {
+            $config['width_user'] = '80px';
+        }
+
         $qry = rex_sql::factory();
-        $results = $qry
+        $qry
           ->setDebug(false)
           ->setTable(rex::getTable('article'))
           ->setWhere(['clang_id' => $clang, 'parent_id' => $category_id])
-          ->select('id, clang_id, updatedate, updateuser')
-          ;
-        $results = $results->getArray();
+          ->select('id, name, clang_id, updatedate, updateuser');
+          $results = $qry->getArray();
 
-        $datewidth = $plugin->getConfig('width_date');
-        if ($datewidth == '') {
-            $datewidth = '80px';
-        }
-
-        $userwidth = $plugin->getConfig('width_user');
-        if ($userwidth == '') {
-            $userwidth = '80px';
-        }
-
+       $items = [];
         foreach ($results as $result) {
             $item = [
-                'article_id' => $result['id'],
-                'updatedate' => rex_formatter::format($result['updatedate'], 'strftime', rex_i18n::msg('datetimeformat')),
+                'id' => $result['id'],
                 'updateuser' => $result['updateuser'],
-                'datewidth' => $datewidth,
-                'userwidth' => $userwidth,
+                'updatedate' => rex_formatter::format($result['updatedate'], 'strftime', rex_i18n::msg('dateformat')),
             ];
 
-            $return[] = $item;
+            $items[] = $item;
         }
 
+        $return['config'] = $config;
+        $return ['items'] = $items;
+
         header('Content-Type: application/json; charset=UTF-8');
-        echo json_encode($return);
+        echo json_encode($return, JSON_PRETTY_PRINT);
         exit;
     }
 }

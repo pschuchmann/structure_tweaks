@@ -34,12 +34,12 @@ class structure_tweaks_last_changes extends structure_tweaks_base
             $subject .= '
                 <script>
                     $(document).ready(function() {
-                        var structureTweaks_category_last_changes = new structureTweaksLastChanges();
-                        structureTweaks_category_last_changes.lastModifiedCategories();
+                        var structureTweaks_last_changes = new structureTweaksLastChanges();
+                        structureTweaks_last_changes.lastChanges();
                   });
                     $(document).on("pjax:end", function() {
-                        var structureTweaks_category_last_changes = new structureTweaksLastChanges();
-                        structureTweaks_category_last_changes.lastModifiedCategories();
+                        var structureTweaks_last_changes = new structureTweaksLastChanges();
+                        structureTweaks_last_changes.lastChanges();
                     });
                 </script>';
         };
@@ -49,11 +49,11 @@ class structure_tweaks_last_changes extends structure_tweaks_base
         //         <script>
         //             $(document).ready(function() {
         //                 var structureTweaks_article_last_changes = new structureTweaksLastChanges();
-        //                 structureTweaks_article_last_changes.lastModifiedArticles();
+        //                 structureTweaks_article_last_changes.lastChangedArticles();
         //             });
         //             $(document).on("pjax:end", function() {
         //                 var structureTweaks_article_last_changes = new structureTweaksLastChanges();
-        //                 structureTweaks_article_last_changes.lastModifiedArticles();
+        //                 structureTweaks_article_last_changes.lastChangedArticles();
         //             });
         //         </script>';
         // }
